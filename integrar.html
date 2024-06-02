@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<style>
+    /* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para el botón */
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el resultado */
+#resultado {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+</style>
+<body>
+
+    <h1>CALCULADORA DE INTEGRACIÓN MEDIANTE EL MÉTODO DEL TRAPECIO</h1>
+
+    <select id="seleccion" onchange="insertaelemento()">
+        <option value="">Selecciona el grado de la función</option>
+        <option value="1">Primer grado</option>
+        <option value="2">Segundo grado</option>
+        <option value="3">Tercer grado</option>
+    </select>
+    <br><br>
+    <div id="contenido"></div>
+    <div id="tabla-container">        
+        <table border="1">
+            <thead>
+                 <tr>
+                     <th>x</th>
+                </tr>
+            </thead>
+
+            <tbody id="tabla-body">
+            <!-- Aquí se añadirán las filas de la tabla generadas por JavaScript -->
+            </tbody>
+        </table>
+
+        <table border="1">
+            <thead>
+                 <tr>
+                     <th>fx</th>
+                </tr>
+            </thead>
+            
+            <tbody id="tabla-body2">
+            <!-- Aquí se añadirán las filas de la tabla generadas por JavaScript -->
+            </tbody>
+        </table>
+
+    </div>
+    <div id="resultado"></div>
+    <script>
+        function insertaelemento() {
+            var seleccion = document.getElementById("seleccion");
+            var contenido = document.getElementById("contenido");
+            contenido.innerHTML = "";
+
+            var label, input, br;
+
+            if (seleccion.value === "1") {
+                // La ecuación tendrá la forma y=mx+b
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor de m";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "input-m1";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor de b";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "input-b1";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                // Valores de a, b, n
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor donde comenzará a calcular el área (a)";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "valordea1";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor donde terminará de calcular el área (b)";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "valordeb1";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor de las particiones (n)";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "valorden1";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                var boton = document.createElement("button");
+boton.textContent = "Calcular"; // Establece el texto del botón
+boton.onclick = Calcular; // Asigna la función Calcular al evento onclick del botón
+contenido.appendChild(boton); // Agrega el botón al contenido
+
+function Calcular() {
+    const valordea1 = Number(document.getElementById("valordea1").value);
+        const valordeb1 = Number(document.getElementById("valordeb1").value);
+        const valorden1 = Number(document.getElementById("valorden1").value);
+        const valordem= Number(document.getElementById("input-m1").value);
+        const valordebe= Number(document.getElementById("input-b1").value);
+        const h = (valordeb1 - valordea1) / valorden1;
+
+        // Referencia al cuerpo de la tabla
+        const tablaBody = document.getElementById("tabla-body");
+        const tablaBody2 = document.getElementById("tabla-body2");
+        let suma=0;
+
+        // Generar las filas de la tabla
+        for (let xi = valordea1; xi <= valordeb1; xi += h) {
+            const fila = document.createElement("tr");
+            const celda = document.createElement("td");
+            celda.textContent = xi;
+            fila.appendChild(celda);
+            tablaBody.appendChild(fila);
+
+
+
+        }
+        for (let xi = valordea1; xi <= valordeb1; xi += h) {
+          
+        const fila2 = document.createElement("tr");
+            const celda2 = document.createElement("td");
+            celda2.textContent = xi*valordem+valordebe;
+            suma+=xi*valordem+valordebe;
+            fila2.appendChild(celda2);
+            tablaBody2.appendChild(fila2);
+        }
+let sumapor2= 2*(suma-(valordem*valordea1+valordebe)-(valordem*valordeb1+valordebe));
+let resultado= (valordeb1-valordea1)*(((valordem*valordea1+valordebe)+(valordem*valordeb1+valordebe)+sumapor2)/(2*valorden1))
+console.log(resultado);
+document.getElementById("resultado").textContent = "El resultado es: " + resultado;
+}
+
+
+            } else if (seleccion.value === "2") {
+                // La ecuación tendrá la forma y=ax^2+bx+c
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor de a";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "input-a2";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor de b";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "input-b2";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor de c";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "input-c2";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                // Valores de a, b, n
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor donde comenzará a calcular el área (a)";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "valordea2";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor donde terminará de calcular el área (b)";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "valordeb2";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+                label = document.createElement("label");
+                label.textContent = "Escribe el valor de las particiones (n)";
+                contenido.appendChild(label);
+
+                input = document.createElement("input");
+                input.id = "valorden2";
+                contenido.appendChild(input);
+
+                contenido.appendChild(document.createElement("br"));
+
+
+                var boton = document.createElement("button");
+boton.textContent = "Calcular"; // Establece el texto del botón
+boton.onclick = Calcular; // Asigna la función Calcular al evento onclick del botón
+contenido.appendChild(boton); // Agrega el botón al contenido
+
+function Calcular() {
+        const limitedea2 = Number(document.getElementById("valordea2").value);
+        const limitedeb2 = Number(document.getElementById("valordeb2").value);
+        const valorden2= Number(document.getElementById("valorden2").value);
+        const valordea2= Number(document.getElementById("input-a2").value);
+        const valordeb2= Number(document.getElementById("input-b2").value);
+        const valordec2= Number(document.getElementById("input-c2").value);
+
+        const h2 = (limitedeb2-limitedea2)/valorden2;
+
+        // Referencia al cuerpo de la tabla
+        const tablaBody = document.getElementById("tabla-body");
+        const tablaBody2 = document.getElementById("tabla-body2");
+        let suma2=0;
+
+        // Generar las filas de la tabla
+        for (let xi = limitedea2; xi <= limitedeb2; xi += h2) {
+            const fila = document.createElement("tr");
+            const celda = document.createElement("td");
+            celda.textContent = xi;
+            fila.appendChild(celda);
+            tablaBody.appendChild(fila);
+
+
+
+        }
+        for (let xi = limitedea2; xi <= limitedeb2; xi += h2) {
+          
+        const fila2 = document.createElement("tr");
+            const celda2 = document.createElement("td");
+            celda2.textContent = valordea2*xi*xi+valordeb2*xi+valordec2;
+            suma2+=valordea2*xi*xi+valordeb2*xi+valordec2;
+            fila2.appendChild(celda2);
+            tablaBody2.appendChild(fila2);
+        }
+let suma2por2= 2*(suma2-(valordea2*limitedea2*limitedea2+valordeb2*limitedea2+valordec2)-(valordea2*limitedeb2*limitedeb2+valordeb2*limitedeb2+valordec2))
+let resultado2= (limitedeb2-limitedea2)*(((valordea2*limitedea2*limitedea2+valordeb2*limitedea2+valordec2)+(valordea2*limitedeb2*limitedeb2+valordeb2*limitedeb2+valordec2)+suma2por2)/(2*valorden2))
+console.log(resultado2);
+document.getElementById("resultado").textContent = "El resultado es: " + resultado2;
+}
+            }
+        }
+
+
+    </script>
+</body>
+</html>

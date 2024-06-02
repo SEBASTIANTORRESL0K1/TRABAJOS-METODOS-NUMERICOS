@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora por el Método de Bisección</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .inputs {
+            margin-bottom: 1.5em;
+        }
+        .inputs label {
+            margin-right: 1em;
+            font-size: 1.2em;
+        }
+        .inputs input[type="radio"] {
+            margin-right: 0.5em;
+        }
+        button {
+            padding: 0.7em 2em;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Calculadora por el Método de Bisección</h1>
+
+<div class="container">
+    <div class="inputs">
+        <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="grado" value="segundo" checked> Segundo grado
+        </label>
+        <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="grado" value="tercero"> Tercer grado
+        </label>
+        <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="grado" value="cuarto"> Cuarto grado
+        </label>
+        <br><br><br><br>
+        <button onclick="navegar()">Entrar</button>
+    </div>
+</div>
+
+<script>
+function navegar() {
+    let grado = document.querySelector('input[name="grado"]:checked').value;
+    switch (grado) {
+        case "segundo":
+            window.location.href = "segundo.html";
+            break;
+        case "tercero":
+            window.location.href = "tercero.html";
+            break;
+        case "cuarto":
+            window.location.href = "cuarto.html";
+            break;
+        default:
+            alert("Selecciona una opción válida.");
+    }
+}
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
